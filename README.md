@@ -38,7 +38,7 @@ A great thing about hooking Winsock's ```connect``` or ```WSAConnect``` is that 
 
 ### A Look at the Code
 
-```
+```cpp
 #include "pch.h"
 #include <Windows.h>
 #include <winsock2.h>
