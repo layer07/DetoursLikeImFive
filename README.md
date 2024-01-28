@@ -54,8 +54,10 @@ void Hexdump(const char* data, int length);
 typedef int (WINAPI* ConnectFunction)(SOCKET s, const struct sockaddr* name, int namelen);
 typedef int (WINAPI* SendFunction)(SOCKET s, const char* buf, int len, int flags);
 typedef int (WINAPI* RecvFunction)(SOCKET s, char* buf, int len, int flags);
-typedef int (WSAAPI* WSARecvFunction)(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LPDWORD lpNumberOfBytesRecvd,
-LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+typedef int (WSAAPI* WSARecvFunction)(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, 
+LPDWORD lpNumberOfBytesRecvd,
+LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, 
+LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 
 ConnectFunction originalConnect = nullptr;
 SendFunction originalSend = nullptr;
