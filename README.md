@@ -17,7 +17,6 @@ OK so, the list is not huge, but if you want to start using detours, for this gu
 * Microsoft Visual Studio 2022 -> [Here](https://visualstudio.microsoft.com/vs/)
 * VS2022 Desktop Development With C++ 
 * Windows 10 or 11 SDK _(Depending on your OS)_
-* This project Source Code -> [Here](https://github.com/layer07/DetoursLikeImFive)
 
 **Optional**
 * Autoit _(so you can modify the target binary)_ -> [Here](https://www.autoitscript.com/site/autoit/downloads/)
@@ -101,8 +100,10 @@ int WINAPI DetouredRecv(SOCKET s, char* buf, int len, int flags)
     return result;
 }
 
-int WSAAPI DetouredWSARecv(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LPDWORD lpNumberOfBytesRecvd, 
-LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine)
+int WSAAPI DetouredWSARecv(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, 
+LPDWORD lpNumberOfBytesRecvd, 
+LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, 
+LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine)
 {
     printf("WSARecv - Buffer Count: %u\n", dwBufferCount);
 
@@ -178,8 +179,10 @@ Don't get scared, C++ has a lot of boilerplate code and sometimes it is not real
 typedef int (WINAPI* ConnectFunction)(SOCKET s, const struct sockaddr* name, int namelen);
 typedef int (WINAPI* SendFunction)(SOCKET s, const char* buf, int len, int flags);
 typedef int (WINAPI* RecvFunction)(SOCKET s, char* buf, int len, int flags);
-typedef int (WSAAPI* WSARecvFunction)(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LPDWORD lpNumberOfBytesRecvd,
-LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+typedef int (WSAAPI* WSARecvFunction)(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, 
+LPDWORD lpNumberOfBytesRecvd,
+LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, 
+LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 ```
 In the context of Detours, these ```typedefs``` establish function pointer types that mirror the signatures of specific Windows API functions. 
 Whenever you want to ```hook``` a function, you should read the documentation and properly understand each parameter, _pinvoke.net_ was a great source for that, even with code examples, but Microsoft discontinued the website, you will still be able to access WinAPI information on Microsoft's Official Documentation platform, and they do provide well documented information for almost all of their APIs. 
@@ -210,8 +213,10 @@ int WINAPI DetouredRecv(SOCKET s, char* buf, int len, int flags){
 //[...]
 }
 
-int WSAAPI DetouredWSARecv(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, LPDWORD lpNumberOfBytesRecvd, 
-LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine){
+int WSAAPI DetouredWSARecv(SOCKET s, LPWSABUF lpBuffers, DWORD dwBufferCount, 
+LPDWORD lpNumberOfBytesRecvd, 
+LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, 
+LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine){
 //[...]
 }
 ```
