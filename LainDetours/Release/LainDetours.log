@@ -1,0 +1,11 @@
+﻿  pch.cpp
+  dllmain.cpp
+     Creating library A:\CPP_DEV\LainDetours\Release\LainDetours.lib and object A:\CPP_DEV\LainDetours\Release\LainDetours.exp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 26 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+detours.lib(detours.obj) : warning LNK4099: PDB '' was not found with 'detours.lib(detours.obj)' or at ''; linking object as if no debug info
+detours.lib(modules.obj) : warning LNK4099: PDB '' was not found with 'detours.lib(modules.obj)' or at ''; linking object as if no debug info
+detours.lib(disasm.obj) : warning LNK4099: PDB '' was not found with 'detours.lib(disasm.obj)' or at ''; linking object as if no debug info
+  LainDetours.vcxproj -> A:\CPP_DEV\LainDetours\Release\LainDetours.dll
