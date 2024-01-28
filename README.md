@@ -341,6 +341,9 @@ Now that we've added our DLL to the import table of our binary, there should be 
 ### YAAAY - It works ٩(◕‿◕)۶!
 Finally, we have a working Detours Project. Feel free to fiddle with the code! You can change the Host IP, you can edit the information being sent or received, you can inject this DLL at Runtime into other processes, and so on!
 
+### License
+This project is licensed under [GLWTPL](./LICENSE)
+
 
 
 
