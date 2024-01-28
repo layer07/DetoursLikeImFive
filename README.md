@@ -174,7 +174,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
 Don't get scared, C++ has a lot of boilerplate code and sometimes it is not really intuitive, especially when dealing with WinAPI. Let's break down parts of the code so you can understand the code structure better.
 
-```
+```cpp
 typedef int (WINAPI* ConnectFunction)(SOCKET s, const struct sockaddr* name, int namelen);
 typedef int (WINAPI* SendFunction)(SOCKET s, const char* buf, int len, int flags);
 typedef int (WINAPI* RecvFunction)(SOCKET s, char* buf, int len, int flags);
@@ -185,7 +185,7 @@ In the context of Detours, these ```typedefs``` establish function pointer types
 Whenever you want to ```hook``` a function, you should read the documentation and properly understand each parameter, _pinvoke.net_ was a great source for that, even with code examples, but Microsoft discontinued the website, you will still be able to access WinAPI information on Microsoft's Official Documentation platform, and they do provide well documented information for almost all of their APIs. 
 For example, you can learn more about ```WSARecv``` directly from microsoft [here](https://learn.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-wsarecv).
 
-```
+```cpp
 ConnectFunction originalConnect = nullptr;
 SendFunction originalSend = nullptr;
 RecvFunction originalRecv = nullptr;
@@ -197,7 +197,7 @@ In this part of the code, we create four pointers: originalConnect, originalSend
 We set them to ```nullptr```, so that they don't point anywhere specific. It's a safety net to avoid pointing to the wrong place.
 Later in the code, as we employ Detours to intercept these functions, we'll link these pointers to the genuine functions. 
 
-```
+```cpp
 int WINAPI DetouredConnect(SOCKET s, const struct sockaddr* name, int namelen){
 //[...]
 }
@@ -219,7 +219,7 @@ LPDWORD lpFlags, LPWSAOVERLAPPED lpOverlapped, LPWSAOVERLAPPED_COMPLETION_ROUTIN
 These functions serve as the core of our hooking mechanism, where our custom code takes action. This is where we focus on implementing our desired changes, whether it's modifying the hostname, altering data, or any other necessary adjustments. After applying our custom logic, we proceed to call the original function, capture its return value, and typically return it (unless we intentionally want to modify the return value ourselves).
 
 
-```
+```cpp
 extern "C" __declspec(dllexport) void Lain1337()
 {
     // Exporting a dummy function
@@ -232,7 +232,7 @@ When we inject a DLL into a process, we need a way for the process to locate and
 
 In this case, ```Lain1337``` acts as a placeholder or dummy export function. It may not have any specific functionality associated with it, but it allows tools like StudPE to identify an entry point in our DLL. 
 
-```
+```cpp
 if (AllocConsole()) {
     freopen("CONOUT$", "w", stdout);
     SetConsoleTitle(L"Injected Console");
@@ -243,7 +243,7 @@ if (AllocConsole()) {
 
 Here, we're using ```AllocConsole()``` to create a new console window specifically for our DLL. This console will be used to print messages and debugging information while our DLL is running inside another process. This part is not needed, and you won't be doing that in a real Detours applications, especially since we have only one thread, and we'll be lagging the real API calls with our ```std::cout/printf``` - we're just doing it so it is an easy way to debug in real time.
 
-```
+```cpp
 if (ul_reason_for_call == DLL_PROCESS_ATTACH)
 {
     WSADATA wsaData;
@@ -287,7 +287,7 @@ Our victim is a x86 (.exe) binary, that comes clean, without our Detours fiddlin
 Let's take a look on the AU3 source code.
 
 
-```
+```c
 ConsoleWrite("[AU3] Victim.exe Launched!")
 Opt("TCPTimeout", 1000)
 TCPStartup()
