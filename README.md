@@ -112,7 +112,8 @@ LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine)
         printf("Buffer %u Size: %u\n", i, lpBuffers[i].len);
     }
 
-    int result = originalWSARecv(s, lpBuffers, dwBufferCount, lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine);
+    int result = originalWSARecv(s, lpBuffers, dwBufferCount, 
+	lpNumberOfBytesRecvd, lpFlags, lpOverlapped, lpCompletionRoutine);
     Hexdump(lpBuffers->buf, 256); // You can adjust the size you want to dump here    
     return result;
 }
